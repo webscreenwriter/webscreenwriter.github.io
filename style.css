@@ -1,5 +1,10 @@
+body {
+  text-align: center;
+}
+
 textarea {
-  width: 99vw
-  height: 2000vh
+  width: 99vw;
+  height: 2000vh;
   border: none;
+  
 }
