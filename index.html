@@ -4,25 +4,32 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<textarea id="script"></textarea>
+<textarea class="dynamic-textarea" id="script"></textarea>
   <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    const myTextarea = document.getElementById('script'); // Replace 'myTextarea' with your textarea's ID
+   document.addEventListener('keydown', function(event) {
+      // Check if the pressed key is Enter (keyCode 13)
+      // and if the event target is a textarea with the class 'dynamic-textarea'
+      if (event.keyCode === 13 && event.target.classList.contains('dynamic-textarea')) {
+        // Prevent the default Enter behavior (new line within the current textarea)
+        event.preventDefault();
 
-    if (myTextarea) {
-        myTextarea.addEventListener('keydown', function(event) {
-            if (event.keyCode === 9) { // Check if the pressed key is Tab (keyCode 9)
-                event.preventDefault(); // Prevent default Tab behavior (focus shift)
-                this.value = this.value.toUpperCase(); // Convert textarea content to uppercase
-                if (event.keyCode === 13) { // check if the pressed key is Enter (keyCode 13)
-                  event.preventDefault();  
-                  this.value = this.value.toLowerCase(); // Convert textare contect to lowercase
-                }
-            }
-        });
-    }
-});
+        // Create a new textarea element
+        const newTextarea = document.createElement('textarea');
+        newTextarea.classList.add('dynamic-textarea');
+        newTextarea.classList.add('toUpperCase');
+        if newTextarea.classList.contains('toUpperCase') {
+           newTextarea.classList.remove('toUpperCase')
+        }
+        newTextarea.placeholder = "Continue typing...";
+
+        // Append the new textarea to the container
+        document.getElementById('textareaContainer').appendChild(newTextarea);
+
+        // Focus on the newly created textarea
+        newTextarea.focus();
+      }
+    });
+
     
 // Function to set a cookie
 function setCookie(name, value, days) {
