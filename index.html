@@ -4,84 +4,56 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<textarea class="dynamic-textarea" id="script" rows="1" cols="1" ></textarea>
+  <div id="container"></div>
 
-<script>
-    document.getElementById('script').addEventListener('keydown', function(e) {
-  // Check if the pressed key is the Tab key (keyCode 9)
-  if (e.keyCode === 9) {
-    // Prevent the default Tab key behavior (e.g., moving focus)
-    e.preventDefault();
-
-    // Get the current value of the textarea
-    let currentValue = this.value;
-
-    // Convert the entire value to uppercase
-    this.value = currentValue.toUpperCase();
-
-    // Optionally, you might want to re-insert a tab character if the user expects indentation
-    // This example focuses on the uppercase conversion, so no tab insertion is shown.
-  }
-});
-  </script>
-
-  
-  <script>  
-// Function to set a cookie
-function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
-}
-
-// Function to get a cookie
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-    }
-    return "";
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const textarea = document.getElementById('script'); // Assuming your textarea has id="myTextarea"
-    // Load saved content from cookie on page load
-    const savedContent = getCookie('textareaContent');
-    if (savedContent) {
-        textarea.value = savedContent;
-    } else {
-       textarea.placeholder = "Start typing...";
-    }
-    // Save content to cookie on input change
-    textarea.addEventListener('input', () => {
-        setCookie('textareaContent', textarea.value, 30); // Save for 30 days
-    });
-  });
-  </script>
-
-  
   <script>
-       document.body.addEventListener('keydown', function(event) {
-      // Check if the pressed key is Enter (keyCode 13)
-      // and if the event target is a textarea with the class 'dynamic-textarea'
-      if (event.keyCode === 13) {
-        // Prevent the default Enter behavior (new line within the current textarea)
+    const container = document.getElementById('container');
+
+    // Load from localStorage on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedData = JSON.parse(localStorage.getItem('textareas')) || [''];
+
+      savedData.forEach((text, index) => {
+        addTextarea(text, index);
+      });
+    });
+
+    // Create and add a new textarea
+    function addTextarea(value = '', index = null) {
+      const textarea = document.createElement('textarea');
+      textarea.className = 'dynamic-textarea';
+      textarea.placeholder = 'Start typing...';
+      textarea.value = value;
+      textarea.dataset.index = index !== null ? index : container.children.length;
+
+      // Add input listener to auto-save
+      textarea.addEventListener('input', saveAllTextareas);
+
+      // Convert to uppercase on Tab
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          textarea.value = textarea.value.toUpperCase();
+          saveAllTextareas(); // Save after uppercase conversion
+        }
+      });
+
+      container.appendChild(textarea);
+      textarea.focus();
+    }
+
+    // Save all textarea values to localStorage
+    function saveAllTextareas() {
+      const allTextareas = container.querySelectorAll('textarea');
+      const data = Array.from(allTextareas).map(t => t.value);
+      localStorage.setItem('textareas', JSON.stringify(data));
+    }
+
+    // Add new textarea on Enter key (when body is focused on a textarea)
+    document.body.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA') {
         event.preventDefault();
-
-        // Create a new textarea element
-        const newTextarea = document.createElement('textarea');
-        newTextarea.id = "script"
-        newTextarea.placeholder = "Continue typing...";
-
-        // Append the new textarea to the container
-        document.body.appendChild(newTextarea);
-
-        // Focus on the newly created textarea
-        newTextarea.focus();
+        addTextarea('');
       }
     });
   </script>
