@@ -5,8 +5,7 @@
 </head>
 <body>
 <textarea class="dynamic-textarea" id="script" rows="1" cols="1" ></textarea>
-  <script>
-    
+  <script>  
 // Function to set a cookie
 function setCookie(name, value, days) {
     const d = new Date();
@@ -40,8 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     textarea.addEventListener('input', () => {
         setCookie('textareaContent', textarea.value, 30); // Save for 30 days
     });
-});
-
+  });
+  </script>
+  <script>
        document.addEventListener('keydown', function(event) {
       // Check if the pressed key is Enter (keyCode 13)
       // and if the event target is a textarea with the class 'dynamic-textarea'
@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         newTextarea.focus();
       }
     });
-
-
   </script>
 </body>
 </html>
