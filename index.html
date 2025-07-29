@@ -6,7 +6,21 @@
 <body>
 <textarea id="script"></textarea>
   <script>
-    // Function to set a cookie
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    const myTextarea = document.getElementById('script'); // Replace 'myTextarea' with your textarea's ID
+
+    if (myTextarea) {
+        myTextarea.addEventListener('keydown', function(event) {
+            if (event.keyCode === 9) { // Check if the pressed key is Tab (keyCode 9)
+                event.preventDefault(); // Prevent default Tab behavior (focus shift)
+                this.value = this.value.toUpperCase(); // Convert textarea content to uppercase
+            }
+        });
+    }
+});
+    
+// Function to set a cookie
 function setCookie(name, value, days) {
     const d = new Date();
     d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
