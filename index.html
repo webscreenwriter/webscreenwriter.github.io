@@ -8,41 +8,37 @@
   <script>
     // Function to set a cookie
 function setCookie(name, value, days) {
-    let expires = "";
-    if (days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
 }
 
 // Function to get a cookie
 function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
+    for(let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
     }
-    return null;
+    return "";
 }
 
-// Get the textarea element (assuming it has an ID of 'myTextarea')
-const myTextarea = document.getElementById('myTextarea');
+document.addEventListener('DOMContentLoaded', () => {
+    const textarea = document.getElementById('script'); // Assuming your textarea has id="myTextarea"
 
-// Load saved content when the page loads
-window.onload = function() {
+    // Load saved content from cookie on page load
     const savedContent = getCookie('textareaContent');
     if (savedContent) {
-        myTextarea.value = savedContent;
+        textarea.value = savedContent;
     }
-};
 
-// Save content to cookie before the page unloads
-window.addEventListener('beforeunload', function() {
-    setCookie('textareaContent', myTextarea.value, 7); // Save for 7 days
+    // Save content to cookie on input change
+    textarea.addEventListener('input', () => {
+        setCookie('textareaContent', textarea.value, 30); // Save for 30 days
+    });
 });
   </script>
 </body>
