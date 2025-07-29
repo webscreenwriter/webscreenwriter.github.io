@@ -8,3 +8,7 @@ textarea {
   border: none;
   
 }
+
+.toUpperCase {
+  text-transform: uppercase;
+}
