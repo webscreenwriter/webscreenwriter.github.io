@@ -54,21 +54,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedContent = getCookie('textareaContent');
     if (savedContent) {
         textarea.value = savedContent;
+    } else {
+       textarea.value = "No content";
+    }
+    const savedContent2 = getCookie('textAreaContent2');
+    if (savedContent2) {
+        textarea2.value = savedContent2;
+    } else {
+       textarea.value = "No content";
     }
 
     // Save content to cookie on input change
     textarea.addEventListener('input', () => {
         setCookie('textareaContent', textarea.value, 30); // Save for 30 days
     });
-  textarea.addEventListener('input', () => {
-        setCookie('textareaContent', textarea2.value, 30); // Save for 30 days
+    textarea.addEventListener('input', () => {
+        setCookie('textareaContent2', textarea2.value, 30); // Save for 30 days
     });
   });
   </script>
 
   
   <script>
-       document.getElementById('script').addEventListener('keydown', function(event) {
+       document.body.addEventListener('keydown', function(event) {
       // Check if the pressed key is Enter (keyCode 13)
       // and if the event target is a textarea with the class 'dynamic-textarea'
       if (event.keyCode === 13) {
