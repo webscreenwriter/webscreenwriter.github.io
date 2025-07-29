@@ -49,7 +49,9 @@ function getCookie(name) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const textarea = document.getElementById('script'); // Assuming your textarea has id="myTextarea"
-    const textarea2 = document.getElementById('script2');
+    if (document.getElementById('script2')) {
+       const textarea2 = document.getElementById('script2');
+    };
     // Load saved content from cookie on page load
     const savedContent = getCookie('textareaContent');
     if (savedContent) {
@@ -57,20 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
        textarea.value = "No content";
     }
+  if (textarea2) {
     const savedContent2 = getCookie('textareaContent2');
     if (savedContent2) {
         textarea2.value = savedContent2;
     } else {
        textarea.value = "No content";
     }
-
+  }
     // Save content to cookie on input change
     textarea.addEventListener('input', () => {
         setCookie('textareaContent', textarea.value, 30); // Save for 30 days
     });
-    textarea.addEventListener('input', () => {
+ if (textarea2) {
+    textarea2.addEventListener('input', () => {
         setCookie('textareaContent2', textarea2.value, 30); // Save for 30 days
     });
+  }
   });
   </script>
 
