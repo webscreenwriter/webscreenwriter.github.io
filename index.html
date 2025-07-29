@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedContent) {
         textarea.value = savedContent;
     } else {
-       textarea.value = "No content";
+       textarea.placeholder = "Start typing...";
     }
     // Save content to cookie on input change
     textarea.addEventListener('input', () => {
