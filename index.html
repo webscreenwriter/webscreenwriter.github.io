@@ -15,9 +15,10 @@
             if (event.keyCode === 9) { // Check if the pressed key is Tab (keyCode 9)
                 event.preventDefault(); // Prevent default Tab behavior (focus shift)
                 this.value = this.value.toUpperCase(); // Convert textarea content to uppercase
-            }
-            if (event.keyCode === 13) { // check if the pressed key is Enter (keyCode 13)
-                this.value = this.value.toLowerCase(); // Convert textare contect to lowercase
+                if (event.keyCode === 13) { // check if the pressed key is Enter (keyCode 13)
+                  event.preventDefault();  
+                  this.value = this.value.toLowerCase(); // Convert textare contect to lowercase
+                }
             }
         });
     }
