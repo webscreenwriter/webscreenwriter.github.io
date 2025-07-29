@@ -6,30 +6,6 @@
 <body>
 <textarea class="dynamic-textarea" id="script"></textarea>
   <script>
-   document.addEventListener('keydown', function(event) {
-      // Check if the pressed key is Enter (keyCode 13)
-      // and if the event target is a textarea with the class 'dynamic-textarea'
-      if (event.keyCode === 13 && event.target.classList.contains('dynamic-textarea')) {
-        // Prevent the default Enter behavior (new line within the current textarea)
-        event.preventDefault();
-
-        // Create a new textarea element
-        const newTextarea = document.createElement('textarea');
-        newTextarea.classList.add('dynamic-textarea');
-        newTextarea.classList.add('toUpperCase');
-        if newTextarea.classList.contains('toUpperCase') {
-           newTextarea.classList.remove('toUpperCase')
-        }
-        newTextarea.placeholder = "Continue typing...";
-
-        // Append the new textarea to the container
-        document.getElementById('textareaContainer').appendChild(newTextarea);
-
-        // Focus on the newly created textarea
-        newTextarea.focus();
-      }
-    });
-
     
 // Function to set a cookie
 function setCookie(name, value, days) {
@@ -65,6 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
         setCookie('textareaContent', textarea.value, 30); // Save for 30 days
     });
 });
+
+       document.addEventListener('keydown', function(event) {
+      // Check if the pressed key is Enter (keyCode 13)
+      // and if the event target is a textarea with the class 'dynamic-textarea'
+      if (event.keyCode === 13 && event.target.classList.contains('dynamic-textarea')) {
+        // Prevent the default Enter behavior (new line within the current textarea)
+        event.preventDefault();
+
+        // Create a new textarea element
+        const newTextarea = document.createElement('textarea');
+        newTextarea.classList.add('dynamic-textarea');
+        newTextarea.classList.add('toUpperCase');
+        if newTextarea.classList.contains('toUpperCase') {
+           newTextarea.classList.remove('toUpperCase')
+        }
+        newTextarea.placeholder = "Continue typing...";
+
+        // Append the new textarea to the container
+        document.getElementById('textareaContainer').appendChild(newTextarea);
+
+        // Focus on the newly created textarea
+        newTextarea.focus();
+      }
+    });
+
+
   </script>
 </body>
 </html>
