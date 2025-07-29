@@ -39,6 +39,13 @@
           textarea.value = textarea.value.toUpperCase();
           saveAllTextareas(); // Save after uppercase conversion
         }
+        if (e.key = 'Control') {
+          if (e.key == 'i') {
+          e.preventDefault();
+          textarea.classList.add('italics');
+          saveAllTextAreas();
+          }
+        }  
       });
 
       container.appendChild(textarea);
