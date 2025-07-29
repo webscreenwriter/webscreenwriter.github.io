@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   </script>
   <script>
-       document.addEventListener('keydown', function(event) {
+       document.getElementById('script').addEventListener('keydown', function(event) {
       // Check if the pressed key is Enter (keyCode 13)
       // and if the event target is a textarea with the class 'dynamic-textarea'
       if (event.keyCode === 13 && event.target.classList.contains('dynamic-textarea')) {
