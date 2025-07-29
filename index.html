@@ -28,7 +28,7 @@ function getCookie(name) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const textarea = document.getElementById('script'); // Assuming your textarea has id="myTextarea"
-
+    const textarea2 = document.getElementById('script2');
     // Load saved content from cookie on page load
     const savedContent = getCookie('textareaContent');
     if (savedContent) {
@@ -69,10 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Create a new textarea element
         const newTextarea = document.createElement('textarea');
+        newxTextarea.id = "script2"
         newTextarea.placeholder = "Continue typing...";
 
         // Append the new textarea to the container
-        document.getElementsByTagName("body").appendChild(newTextarea);
+        document.body.appendChild(newTextarea);
 
         // Focus on the newly created textarea
         newTextarea.focus();
