@@ -41,7 +41,7 @@
         }
         if (e.key === 'Control') {
           e.preventDefault();
-          textarea.classList.add('italics');
+          textarea.value = textarea.classList.add('italics');
           saveAllTextareas();
         }
       });
