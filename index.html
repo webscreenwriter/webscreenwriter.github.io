@@ -42,6 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   </script>
   <script>
+    document.getElementById('myTextarea').addEventListener('keydown', function(e) {
+  // Check if the pressed key is the Tab key (keyCode 9)
+  if (e.keyCode === 9) {
+    // Prevent the default Tab key behavior (e.g., moving focus)
+    e.preventDefault();
+
+    // Get the current value of the textarea
+    let currentValue = this.value;
+
+    // Convert the entire value to uppercase
+    this.value = currentValue.toUpperCase();
+
+    // Optionally, you might want to re-insert a tab character if the user expects indentation
+    // This example focuses on the uppercase conversion, so no tab insertion is shown.
+  }
+});
+  </script>
+  <script>
        document.addEventListener('keydown', function(event) {
       // Check if the pressed key is Enter (keyCode 13)
       // and if the event target is a textarea with the class 'dynamic-textarea'
