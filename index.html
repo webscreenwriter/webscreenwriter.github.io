@@ -65,14 +65,6 @@
         addTextarea('');
       }
     });
-
-    // Start a new document
-    function createNewScript() {
-      const cleanSlate = "";
-      localStorage.setItem('textareas', JSON.stringify(cleanSlate));
-      alert("New script created."); // Optional: provide feedback to the user
-    }
-    document.getElementById('newScript').addEventListener('click', createNewScript);
   </script>
 </body>
 </html>
