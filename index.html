@@ -39,8 +39,8 @@
       document.getElementById('date').value = savedHeaderData.date;
       document.getElementById('contact').value = savedHeaderData.contact;
 
-      // Also load dynamic textareas
-      const savedData = JSON.parse(localStorage.getItem('textareas')) || [''];
+      // Load dynamic textareas if they exist in localStorage
+      const savedData = JSON.parse(localStorage.getItem('textareas')) || [];
       savedData.forEach((text, index) => {
         addTextarea(text, index);
       });
@@ -89,24 +89,24 @@
 
     // Save all dynamic textarea values to localStorage
     function saveAllTextareas() {
-      const allTextareas = container.querySelectorAll('textarea');
+      const allTextareas = container.querySelectorAll('textarea.dynamic-textarea');
       const data = Array.from(allTextareas).map(t => t.value);
       localStorage.setItem('textareas', JSON.stringify(data));
     }
 
     // Add new dynamic textarea on Enter key (when body is focused on a textarea)
     document.body.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA') {
+      if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA' && !document.activeElement.classList.contains('dynamic-textarea')) {
         event.preventDefault();
         addTextarea('');
       }
     });
   </script>
+
   <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
   <script type='text/javascript'>
     kofiwidget2.init('Donate', '#72a4f2', 'Y8Y71LEFO9');
     kofiwidget2.draw();
-  </script> 
+  </script>
 </body>
 </html>
-
