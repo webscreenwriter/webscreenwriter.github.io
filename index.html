@@ -7,20 +7,72 @@
   <meta property="og:image" content="IMG_3061.JPG">
 </head>
 <body>
-  <div id="container"></div>
+  <div id="container">
+    <!-- Add static textareas here -->
+    <div class="header-textareas">
+      <label for="title">Title:</label>
+      <textarea id="title"></textarea>
+      
+      <label for="credit">Written By:</label>
+      <textarea id="credit"></textarea>
+      
+      <label for="copyright">Copyright:</label>
+      <textarea id="copyright"></textarea>
+      
+      <label for="date">Draft Date:</label>
+      <textarea id="date"></textarea>
+      
+      <label for="contact">Contact:</label>
+      <textarea id="contact"></textarea>
+    </div>
+  </div>
+
   <script>
     const container = document.getElementById('container');
+    const headerTextareas = document.querySelector('.header-textareas');
 
-    // Load from localStorage on page load
+    // Load from localStorage on page load for header textareas
     document.addEventListener('DOMContentLoaded', () => {
-      const savedData = JSON.parse(localStorage.getItem('textareas')) || [''];
+      const savedHeaderData = JSON.parse(localStorage.getItem('headerTextareas')) || {
+        title: '',
+        credit: '',
+        copyright: '',
+        date: '',
+        contact: ''
+      };
+      
+      // Set the values of header textareas from saved data
+      document.getElementById('title').value = savedHeaderData.title;
+      document.getElementById('credit').value = savedHeaderData.credit;
+      document.getElementById('copyright').value = savedHeaderData.copyright;
+      document.getElementById('date').value = savedHeaderData.date;
+      document.getElementById('contact').value = savedHeaderData.contact;
 
+      // Also load dynamic textareas
+      const savedData = JSON.parse(localStorage.getItem('textareas')) || [''];
       savedData.forEach((text, index) => {
         addTextarea(text, index);
       });
     });
 
-    // Create and add a new textarea
+    // Event listeners for auto-saving header textareas
+    headerTextareas.querySelectorAll('textarea').forEach(textarea => {
+      textarea.addEventListener('input', saveHeaderTextareas);
+    });
+
+    // Save header textarea data to localStorage
+    function saveHeaderTextareas() {
+      const headerData = {
+        title: document.getElementById('title').value,
+        credit: document.getElementById('credit').value,
+        copyright: document.getElementById('copyright').value,
+        date: document.getElementById('date').value,
+        contact: document.getElementById('contact').value
+      };
+      localStorage.setItem('headerTextareas', JSON.stringify(headerData));
+    }
+
+    // Create and add a new dynamic textarea
     function addTextarea(value = '', index = null) {
       const textarea = document.createElement('textarea');
       textarea.className = 'dynamic-textarea';
@@ -28,20 +80,15 @@
       textarea.value = value;
       textarea.dataset.index = index !== null ? index : container.children.length;
 
-      // Add input listener to auto-save
+      // Add input listener to auto-save dynamic textareas
       textarea.addEventListener('input', saveAllTextareas);
 
-      // Convert to uppercase on Tab
+      // Convert to uppercase on Tab key press
       textarea.addEventListener('keydown', (e) => {
         if (e.key === 'Tab') {
           e.preventDefault();
           textarea.value = textarea.value.toUpperCase();
           saveAllTextareas(); // Save after uppercase conversion
-        }
-        if (e.key === 'Control') {
-          e.preventDefault();
-          textarea.classList.add('italics');
-          saveAllTextareas();
         }
       });
 
@@ -49,14 +96,14 @@
       textarea.focus();
     }
 
-    // Save all textarea values to localStorage
+    // Save all dynamic textarea values to localStorage
     function saveAllTextareas() {
       const allTextareas = container.querySelectorAll('textarea');
       const data = Array.from(allTextareas).map(t => t.value);
       localStorage.setItem('textareas', JSON.stringify(data));
     }
 
-    // Add new textarea on Enter key (when body is focused on a textarea)
+    // Add new dynamic textarea on Enter key (when body is focused on a textarea)
     document.body.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA') {
         event.preventDefault();
@@ -64,6 +111,11 @@
       }
     });
   </script>
-  <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Donate', '#72a4f2', 'Y8Y71LEFO9');kofiwidget2.draw();</script> 
+  <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+  <script type='text/javascript'>
+    kofiwidget2.init('Donate', '#72a4f2', 'Y8Y71LEFO9');
+    kofiwidget2.draw();
+  </script> 
 </body>
 </html>
+
