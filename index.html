@@ -96,7 +96,7 @@
 
     // Add new dynamic textarea on Enter key (when body is focused on a textarea)
     document.body.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA' && document.activeElement.classList.contains('dynamic-textarea')) {
+      if (event.key === 'Enter' && document.activeElement.tagName === 'TEXTAREA' || document.activeElement.classList.contains('dynamic-textarea')) {
         event.preventDefault();
         addTextarea('');
       }
