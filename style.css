@@ -25,3 +25,7 @@ label {
   display: flex;
   justify-content: space-between;
 }
+
+label > textarea {
+  width: 50vw;
+}
