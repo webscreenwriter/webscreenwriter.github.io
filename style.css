@@ -18,4 +18,5 @@ textarea {
   text-align: left;
   font-size: 12pt;
   font-weight: bold;
+  border-bottom: 2px solid black;
 }
