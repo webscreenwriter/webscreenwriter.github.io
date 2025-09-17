@@ -1,5 +1,5 @@
-# Web Screenwriter
-### A free Final Draft alternative. 
+# Web Screenwriter Freeware
+### A free, open-source screenplay writer 
 
 Keyboard Shortcuts: 
 1. Enter -> Create a new line
