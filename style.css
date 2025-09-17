@@ -13,3 +13,9 @@ textarea {
 .italics {
   font-style: italic;
 }
+
+.header-textareas {
+  text-align: left;
+  font-size: 14pt;
+  font-weight: bold;
+}
