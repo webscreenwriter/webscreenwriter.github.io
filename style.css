@@ -23,4 +23,5 @@ textarea {
 
 label {
   display: flex;
+  justify-content: flex-end;
 }
